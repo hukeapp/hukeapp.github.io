@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>生源地分布图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <style>
+        html, body, #chart {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+        var populationData = [
+            { name: '湖北', value: 20 },
+            { name: '贵州', value: 10 },
+            { name: '广西', value: 5 },
+            { name: '河南', value: 2 },
+            { name: '湖南', value: 1 },
+            { name: '安徽', value: 1 },
+            { name: '四川', value: 1 },
+            // ... 其他省份数据
+        ];
+
+        var chart = echarts.init(document.getElementById('chart'));
+
+        var option = {
+            title: {
+                text: '生源地分布图',
+                subtext: '数据来源：xx统计局',
+                sublink: 'http://www.xxstat.gov.cn'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}<br/>{c} 人'
+            },
+            visualMap: {
+                min: 0,
+                max: 30,
+                left: 'left',
+                top: 'bottom',
+                text: ['高', '低'],
+                inRange: {
+                    color: ['#e0ffff', '#006edd']
+                },
+                calculable: true
+            },
+            series: [{
+                name: '人口数量',
+                type: 'map',
+                map: 'china',
+                roam: false,
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    label: {
+                        show: true
+                    }
+                },
+                data: populationData
+            }]
+        };
+
+        chart.setOption(option);
+    </script>
+</body>
+</html>
